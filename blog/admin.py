@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import Category, Post
 
+
+
+
 @admin.action(description='опубликовать')
 def make_published(self, request, queryset): # выполняет запрос
     queryset.update(is_published=True)
@@ -14,7 +17,7 @@ class ManagerPanel(admin.AdminSite): # Панелька для менеджер�
     site_title = 'manager'
     index_title = 'manager index'
 
-manager = ManagerPanel()
+manager = ManagerPanel(name='manager')
 
 class PostInline(admin.StackedInline):
     model = Post
@@ -33,6 +36,8 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_created'
+    search_fields = ('title', )
+    search_help_text = 'Поиск по заголовку'
     ordering = ('date_created', '-title')
     list_display = ('title', 'full_name', 'date')
     readonly_fields = ('date_created', 'slug') # атрибуты, которые нельзя редактировать
