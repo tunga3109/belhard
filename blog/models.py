@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 
+from datetime import datetime
+
 # Create your models here.
 
 class Category(models.Model):
@@ -25,6 +27,7 @@ class Category(models.Model):
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
         db_table = 'blog_categories' # название таблицы в бд
+    
     
 
 class Post(models.Model):
@@ -64,4 +67,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def date(self) -> str:
+        return self.date_created.strftime('%d/%m/%y')
+    
+    @property
+    def full_name(self) -> str:
+        return self.author.first_name + ' ' + self.author.last_name
 
