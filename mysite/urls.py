@@ -14,11 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from blog.admin import manager
 
-urlpatterns = [
+urlpatterns = [ # название должно быть urlpatterns. Строго!!!!
     path('admin/', admin.site.urls),
-    path('manager/', manager.urls, )
+    path('manager/', manager.urls),
+    path('blog/', include('blog.urls'))
 ]
+
+handler404 = 'blog.views.error404' #зарезервированная переменная

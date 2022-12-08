@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 from datetime import datetime
 
+
 # Create your models here.
 
 class Category(models.Model):
@@ -19,16 +20,14 @@ class Category(models.Model):
     )
     slug = models.SlugField(verbose_name='URL', unique=True)
 
-
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
-        db_table = 'blog_categories' # название таблицы в бд
-    
-    
+        db_table = 'blog_categories'  # название таблицы в бд
+
 
 class Post(models.Model):
     title = models.CharField(
@@ -50,15 +49,15 @@ class Post(models.Model):
     )
 
     category = models.ForeignKey(
-        'Category', 
-        on_delete=models.NOT_PROVIDED, 
-        verbose_name='') # не писать название аттрибута category_id, получится category_id_id))))
+        'Category',
+        on_delete=models.NOT_PROVIDED,
+        verbose_name='')  # не писать название аттрибута category_id, получится category_id_id))))
 
     author = models.ForeignKey(
-        User, 
-        on_delete=models.CASCADE, 
+        User,
+        on_delete=models.CASCADE,
         verbose_name='автор')
-    
+
     class Meta:
         db_table = 'blog_posts'
         verbose_name = 'пост'
@@ -71,8 +70,7 @@ class Post(models.Model):
     @property
     def date(self) -> str:
         return self.date_created.strftime('%d/%m/%y')
-    
+
     @property
     def full_name(self) -> str:
         return self.author.first_name + ' ' + self.author.last_name
-
