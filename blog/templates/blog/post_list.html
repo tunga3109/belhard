@@ -8,8 +8,8 @@
 <br>
 <br>
 {% for post in posts %}
-<b>{{ post.title }}</b><br>
-{{ post.author }}<br>
+<b>{{ post.title|title }}</b><br>
+{{ post.author|title }}<br>
 {% empty %}
 <b>ПОСТОВ НЕТ</b>
 {% endfor %}
