@@ -5,6 +5,14 @@
     <title>POSTS</title>
 </head>
 <body>
-<b>HELL</b>
+<br>
+<br>
+{% for post in posts %}
+<b>{{ post.title }}</b><br>
+{{ post.author }}<br>
+{% empty %}
+<b>ПОСТОВ НЕТ</b>
+{% endfor %}
+
 </body>
 </html>
