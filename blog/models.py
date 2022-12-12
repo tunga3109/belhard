@@ -50,20 +50,14 @@ class Post(models.Model):
     )
 
     category = models.ForeignKey(
-        'Category',
-        on_delete=models.NOT_PROVIDED,
-        verbose_name='')  # не писать название аттрибута category_id, получится category_id_id))))
+        Category,
+        on_delete=models.DO_NOTHING,
+        verbose_name='Категория')  # не писать название аттрибута category_id, получится category_id_id))))
 
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name='автор')
-
-    class Meta:
-        db_table = 'blog_posts'
-        verbose_name = 'пост'
-        verbose_name_plural = 'посты'
-        ordering = ['date_created']
 
     def __str__(self):
         return self.title
@@ -73,8 +67,14 @@ class Post(models.Model):
 
     @property
     def date(self) -> str:
-        return self.date_created.strftime('%d/%m/%y')
+        return self.date_created.strftime('%d.%m.%y')
 
     @property
-    def full_name(self) -> str:
+    def full_name(self):
         return self.author.first_name + ' ' + self.author.last_name
+
+    class Meta:
+        db_table = 'blog_posts'
+        verbose_name = 'пост'
+        verbose_name_plural = 'посты'
+        ordering = ['date_created']

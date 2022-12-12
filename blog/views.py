@@ -1,9 +1,11 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
-from django.http import HttpRequest, JsonResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpRequest
+from django.views.decorators.http import require_GET
+
 
 from .models import Post
 
-
+@require_GET
 def blog_list(request: HttpRequest):
     posts_list = Post.objects.all()
     return render(request, "blog/index.html", {'posts': posts_list})
