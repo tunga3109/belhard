@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>POSTS</title>
-</head>
-<body>
-<br>
-<br>
 {% for post in posts %}
-<b>{{ post.title|title }}</b><br>
-{{ post.author|title }}<br>
-{% empty %}
-<b>ПОСТОВ НЕТ</b>
-{% endfor %}
+<div class="post-preview">
+    <a href="post.html">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <h3 class="post-subtitle">{{ post.descr|truncatechars:50 }}</h3>
+    </a>
+    <p class="post-meta">
+        Posted by
+        <a href="#!">{{ post.author }}</a>
+        {{ post.date }}
+    </p>
+</div>
 
-</body>
-</html>
+<hr class="my-4" />
+{% endfor %}
