@@ -1,7 +1,9 @@
-from django.forms import CharField, EmailField, Form, TextInput, EmailInput, Textarea
+from django.forms import CharField, EmailField, ModelForm, TextInput, EmailInput, Textarea
+
+from .models import Contact
 
 
-class ContactForm(Form):
+class ContactForm(ModelForm):
     name = CharField(
         widget=TextInput(
             attrs={
@@ -9,7 +11,8 @@ class ContactForm(Form):
                 'id': 'name',
                 'placeholder': 'enter your name.....'
             }
-        )
+        ),
+        max_length=64
     )
     email = EmailField(
         widget=EmailInput(
@@ -18,7 +21,8 @@ class ContactForm(Form):
                 'id': 'email',
                 'placeholder': 'Email'
             }
-        )
+        ),
+        max_length=254
     )
     message = CharField(
         widget=Textarea(
@@ -29,5 +33,10 @@ class ContactForm(Form):
                 'placeholder': 'Message'
 
             }
-        )
+        ),
+        max_length=1024
     )
+
+    class Meta:
+        model = Contact
+        fields = ('name', 'email', 'message')

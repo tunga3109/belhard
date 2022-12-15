@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Post
+from .models import Category, Post, Contact
 
 
 @admin.action(description='опубликовать')
@@ -29,11 +29,11 @@ class PostInline(admin.StackedInline):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     actions = (make_published, make_unpublished)
-    inlines = (PostInline, )
+    inlines = (PostInline,)
     list_display = ('id', 'name', 'is_published')
-    list_editable = ('name', )
-    list_filter = ('is_published', )
-    prepopulated_fields = {'slug': ('name', )}
+    list_editable = ('name',)
+    list_filter = ('is_published',)
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Post)
@@ -41,8 +41,8 @@ class PostAdmin(admin.ModelAdmin):
     actions = (make_published, make_unpublished)
     search_fields = ('title', 'descr')
     search_help_text = 'Поиск по заголовку'
-    prepopulated_fields = {'slug': ('title', )}
-    readonly_fields = ('date_created', )
+    prepopulated_fields = {'slug': ('title',)}
+    readonly_fields = ('date_created',)
     date_hierarchy = 'date_created'
     ordering = ('date_created', '-title')
     list_display = ('title', 'full_name', 'date')
@@ -64,7 +64,17 @@ class PostAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ['email', 'name']
+
+
+class ContactManager(ContactAdmin):
+    readonly_fields = ('email', 'name', 'message', 'date_created')
+
+
 # admin.site.register(Category, CategoryAdmin)
 # admin.site.register(Post, PostAdmin)
 manager.register(Category, CategoryAdmin)
 manager.register(Post, PostAdmin)
+manager.register(Contact, ContactManager)
