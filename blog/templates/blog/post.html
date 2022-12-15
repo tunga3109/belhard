@@ -1,8 +1,20 @@
 {% extends "blog/base.html" %}
+{% load static %}
 
 {% block title %}
 {{ post.title }}
 {% endblock %}
+
+//////!!!!!!!!!!
+{% block image %}
+    {% if post.image %}
+        style="background-image: url('{{ post.image.url }}')"
+    {% else %}
+        style="background-image: url('{% static 'assets/img/home-bg.jpg' %}')"
+    {% endif %}
+{% endblock %}
+
+///!!!!!!!!!!
 
 {% block heading %}
 <h1>{{ post.title }}</h1>

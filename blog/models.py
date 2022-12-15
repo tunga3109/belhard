@@ -55,6 +55,13 @@ class Post(models.Model):
         verbose_name='автор'
     )
 
+    image = models.ImageField(
+        upload_to='post',  # от папки media/ поэтому не прописываем media/post
+        null=True,
+        blank=True,
+        verbose_name='картинка'
+    )
+
     def __str__(self):
         return self.title
 
