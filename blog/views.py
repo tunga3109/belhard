@@ -4,6 +4,7 @@ from django.views.decorators.http import require_GET
 
 
 from .models import Post
+from .forms import ContactForm
 
 @require_GET
 def blog_list(request: HttpRequest):
@@ -14,6 +15,11 @@ def blog_list(request: HttpRequest):
 def post_detail(request: HttpRequest, post_slug: str):
     post = get_object_or_404(Post, slug=post_slug)
     return render(request, 'blog/post.html', {'post': post})
+
+
+def contact(request: HttpRequest):
+    form = ContactForm()
+    return render(request, 'blog/contact.html', {'contact_form': form})
 
 
 def error404(request, exception):
