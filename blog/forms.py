@@ -1,4 +1,4 @@
-from django.forms import CharField, EmailField, ModelForm, TextInput, EmailInput, Textarea
+from django.forms import CharField, EmailField, ModelForm, TextInput, EmailInput, Textarea, Form
 
 from .models import Contact
 
@@ -40,3 +40,16 @@ class ContactForm(ModelForm):
     class Meta:
         model = Contact
         fields = ('name', 'email', 'message')
+
+
+class MyForm(Form):
+    email = EmailField(
+        widget=EmailInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'email',
+                'placeholder': 'Email'
+            }
+        ),
+        max_length=254
+    )

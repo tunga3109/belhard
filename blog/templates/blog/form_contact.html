@@ -1,5 +1,8 @@
- <form id="contactForm" method="post" >
-     {% csrf_token %}
+<form method="post">
+    {% csrf_token %}
+    <label>
+        <input name="form_type" value="contact_form" hidden>
+    </label>
     <div class="form-floating">
         {{ form.name }}
         <label for="name">Name</label>
@@ -19,4 +22,4 @@
         </div>
     </div>
     <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
- </form>
+</form>

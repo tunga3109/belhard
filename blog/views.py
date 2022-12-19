@@ -6,7 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.views.decorators.http import require_GET
 
 from .models import Post, Contact
-from .forms import ContactForm
+from .forms import ContactForm, MyForm
 
 
 class BaseMixin:
@@ -29,8 +29,20 @@ class PostListView(BaseMixin, ListView):
         context = super().get_context_data()
         context['heading'] = 'MIXIN HEADING'
         context['subheading'] = 'mixin subheading'
+        context['form'] = ContactForm()
+        context['my_form'] = MyForm()
         context.update(self.context)
         return context
+
+    def post(self, request: HttpRequest):
+        if request.POST.get('form_type') == 'contact_form':
+            form = ContactForm(request.POST)
+            if form.is_valid():
+                form.save()
+        elif request.POST.get('form_type') == 'email_form':
+            print(request.POST.get('email'))
+
+        return self.get(request=request)
 
 
 class PostDetailView(BaseMixin, DetailView):
@@ -75,6 +87,7 @@ class ContactCreateView(BaseMixin, CreateView):
         context['heading'] = 'Contact'
         return context
 
+
 # @require_GET
 # def blog_list(request: HttpRequest):
 #     posts_list = Post.objects.all()
@@ -86,13 +99,13 @@ class ContactCreateView(BaseMixin, CreateView):
 #     return render(request, 'blog/post.html', {'post': post})
 
 
-def contact(request: HttpRequest):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-    form = ContactForm()
-    return render(request, 'blog/contact.html', {'contact_form': form})
+# def contact(request: HttpRequest):
+#     if request.method == 'POST':
+#         form = ContactForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#     form = ContactForm()
+#     return render(request, 'blog/contact.html', {'contact_form': form})
 
 
 # def about(request: HttpRequest):
