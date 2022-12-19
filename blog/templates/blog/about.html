@@ -10,7 +10,7 @@ style="background-image: url('{% static 'assets/img/home-bg.jpg' %}')"
 {% endblock %}
 
 {% block heading %}
-<h1>CONTACT</h1>
+<h1>{{ heading }}</h1>
 {% endblock %}
 
 {% block main %}
@@ -18,10 +18,8 @@ style="background-image: url('{% static 'assets/img/home-bg.jpg' %}')"
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
-                        <iframe src="https://www.google.com/maps/d/embed?mid=1_ECVm1j8vq8hcyTlEPFP_wGe2Hk&hl=ru&ehbc=2E312F" width="100%" height="480"></iframe>
+                        {{ about }}
+                        <iframe src="{{ coordinate }}" width="100%" height="480"></iframe>
                     </div>
                 </div>
             </div>
